@@ -7,14 +7,17 @@ using System.Windows;
 //// General Information about an assembly is controlled through the following
 //// set of attributes. Change these attribute values to modify the information
 //// associated with an assembly.
-//[assembly: AssemblyTitle("InteractiveDataDisplay.WPF")]
-//[assembly: AssemblyDescription("")]
-//[assembly: AssemblyConfiguration("")]
-//[assembly: AssemblyCompany("")]
-//[assembly: AssemblyProduct("InteractiveDataDisplay.WPF")]
-//[assembly: AssemblyCopyright("Copyright ©  2017")]
-//[assembly: AssemblyTrademark("")]
-//[assembly: AssemblyCulture("")]
+[assembly: AssemblyTitle("mpolewaczyk.InteractiveDataDisplay.WPF")]
+[assembly: AssemblyDescription("Interactive Data Display for WPF is a set of controls for adding interactive visualization of dynamic data to your application.")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("Sergey Berezin, Vassily Lyutsarev, Nikita Skoblov, Natalia Stepanova")]
+[assembly: AssemblyProduct("InteractiveDataDisplay.WPF")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+[assembly: AssemblyVersion("0.0.1")]
+[assembly: AssemblyFileVersion("0.0.1")]
+[assembly: Guid("B99D3A74-062C-43CC-9892-A69522848082")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from

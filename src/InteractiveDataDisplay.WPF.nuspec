@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/Microsoft/InteractiveDataDisplay.WPF/blob/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>Copyright 2018</copyright>
+    <tags>idd wpf visualization plot plots plotting chart charting data interactive datavisualization</tags>
+    <dependencies>
+      <dependency id="Microsoft.Maps.MapControl.WPF" version="1.0" />
+      <dependency id="System.Reactive" version="4.0" />
+    </dependencies>
+  </metadata>
+</package>

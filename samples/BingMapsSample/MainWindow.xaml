@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BingMapsSample"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
-        xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
+        xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=mpolewaczyk.InteractiveDataDisplay.WPF"
         mc:Ignorable="d"
         Title="Bing map" Height="600" Width="800">
 

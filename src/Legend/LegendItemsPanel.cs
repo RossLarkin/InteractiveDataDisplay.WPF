@@ -123,7 +123,7 @@ namespace InteractiveDataDisplay.WPF
         public LegendItemsPanel()
         {
             var rd = new ResourceDictionary();
-            rd = (ResourceDictionary)Application.LoadComponent(new System.Uri("/InteractiveDataDisplay.WPF;component/Legend/DefaultTemplates.xaml", System.UriKind.Relative));
+            rd = (ResourceDictionary)Application.LoadComponent(new System.Uri("/mpolewaczyk.InteractiveDataDisplay.WPF;component/Legend/DefaultTemplates.xaml", System.UriKind.Relative));
             Resources.MergedDictionaries.Add(rd);
 
             Loaded += LegendItemsPanelLoaded;
