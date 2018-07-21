@@ -6,6 +6,7 @@
     xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF">
 
     <d3:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
+    <d3:BrushToSolidColorBrushConverter x:Key="BrushToSolidColorBrushConverter"/>
     
     <Style TargetType="d3:PlotAxis">
         <Setter Property="Template">
@@ -15,7 +16,7 @@
                         <d3:Axis x:Name="PART_Axis" 
                                  AxisOrientation="{Binding AxisOrientation, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                  Ticks="{Binding Ticks, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                 Foreground="{Binding Foreground, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                 Foreground="{Binding Foreground, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BrushToSolidColorBrushConverter}}"
                                  LabelProvider="{Binding LabelProvider, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
                         <ContentPresenter/>
                     </Grid>

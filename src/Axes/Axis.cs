@@ -47,8 +47,8 @@ namespace InteractiveDataDisplay.WPF
             Children.Add(majorTicksPath);
             Children.Add(minorTicksPath);
 
-            BindingOperations.SetBinding(majorTicksPath, Path.StrokeProperty, new Binding("Foreground") { Source = this, Mode = BindingMode.TwoWay });
-            BindingOperations.SetBinding(minorTicksPath, Path.StrokeProperty, new Binding("Foreground") { Source = this, Mode = BindingMode.TwoWay });
+            BindingOperations.SetBinding(majorTicksPath, Shape.StrokeProperty, new Binding("Foreground") { Source = this, Mode = BindingMode.TwoWay, Converter = new SolidColorBrushToBrushConverter() });
+            BindingOperations.SetBinding(minorTicksPath, Shape.StrokeProperty, new Binding("Foreground") { Source = this, Mode = BindingMode.TwoWay, Converter = new SolidColorBrushToBrushConverter() });
 
             if (labelProvider == null)
                 this.labelProvider = new LabelProvider();

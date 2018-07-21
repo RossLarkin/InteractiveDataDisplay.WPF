@@ -99,6 +99,7 @@
     <Compile Include="Plots\Markers\MarkerGraph.cs" />
     <Compile Include="Plots\Markers\MarkerGraphsWithTemplates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BrushConverter.cs" />
     <Compile Include="Transforms\DataTransforms.cs" />
     <Compile Include="VerticalContentControl.cs" />
   </ItemGroup>
