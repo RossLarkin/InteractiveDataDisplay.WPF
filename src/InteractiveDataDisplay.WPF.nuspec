@@ -6,7 +6,8 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/Microsoft/InteractiveDataDisplay.WPF/blob/master/LICENSE</licenseUrl>
+    <licenseUrl>https://github.com/mpolewaczyk/InteractiveDataDisplay.WPF/blob/nuget/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/mpolewaczyk/InteractiveDataDisplay.WPF/tree/nuget</projectUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright 2018</copyright>

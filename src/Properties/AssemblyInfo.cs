@@ -10,13 +10,12 @@ using System.Windows;
 [assembly: AssemblyTitle("mpolewaczyk.InteractiveDataDisplay.WPF")]
 [assembly: AssemblyDescription("Interactive Data Display for WPF is a set of controls for adding interactive visualization of dynamic data to your application.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Sergey Berezin, Vassily Lyutsarev, Nikita Skoblov, Natalia Stepanova")]
+[assembly: AssemblyCompany("Sergey Berezin, Vassily Lyutsarev, Nikita Skoblov, Natalia Stepanova, Mateusz Polewaczyk")]
 [assembly: AssemblyProduct("InteractiveDataDisplay.WPF")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.0.1")]
-[assembly: AssemblyFileVersion("0.0.1")]
+[assembly: AssemblyVersion("1.1.0")]
 [assembly: Guid("B99D3A74-062C-43CC-9892-A69522848082")]
 
 // Setting ComVisible to false makes the types in this assembly not visible

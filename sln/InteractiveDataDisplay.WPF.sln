@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveDataDisplay.WPF", "..\src\InteractiveDataDisplay.WPF.csproj", "{2D34544C-2DF2-4B20-A43A-6C8D2DF3DD82}"
 EndProject
@@ -64,5 +64,8 @@ Global
 		{F36872BF-8818-4019-A207-2B381C33C370} = {6E637A98-DA68-40CF-B194-56CEB99A57A0}
 		{C724F25D-6F77-48C0-A791-28E34E6B0F0C} = {6E637A98-DA68-40CF-B194-56CEB99A57A0}
 		{0C4C6C54-F253-4FD2-8B38-75E476882A4B} = {6E637A98-DA68-40CF-B194-56CEB99A57A0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A784E9D0-666F-4955-A483-D63B4C1D49DD}
 	EndGlobalSection
 EndGlobal
