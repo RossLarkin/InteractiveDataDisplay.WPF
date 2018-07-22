@@ -306,7 +306,7 @@ namespace InteractiveDataDisplay.WPF {
                 DependencyObject item = child;
                 if (item is ContentPresenter && VisualTreeHelper.GetChildrenCount(item) == 1)
                     item = VisualTreeHelper.GetChild(item, 0);
-
+                
                 var xy = GetPoints(item);
                 if (xy != null)
                     if (item is Polyline)
@@ -322,7 +322,7 @@ namespace InteractiveDataDisplay.WPF {
                         var points = new PointCollection();
                         foreach (var point in xy) points.Add(new Point(LeftFromX(XDataTransform.DataToPlot(point.X)), TopFromY(YDataTransform.DataToPlot(point.Y))));
                         p.Points = points;
-                    }
+                    } 
                 if (item is Line)
                 {
                     var line = (Line)item;
@@ -377,13 +377,24 @@ namespace InteractiveDataDisplay.WPF {
             foreach (UIElement child in Children)
             {
                 DependencyObject item = child;
-                if (item is ContentPresenter && VisualTreeHelper.GetChildrenCount(item) == 1)
+                if (item is ContentPresenter && VisualTreeHelper.GetChildrenCount(item) == 1) {
                     item = VisualTreeHelper.GetChild(item, 0);
-
+                }
+                
                 if (item is Line || item is Polyline)
                 {
                     child.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
                 }
+                else if (item is ItemsControl itemsControl) {
+                    for (int i = 0; i < itemsControl.Items.Count; i++) {
+                        if (itemsControl.Items[i] is Point point) {
+                            var x = LeftFromX(XDataTransform.DataToPlot(point.X));
+                            var y = TopFromY(YDataTransform.DataToPlot(point.Y));
+                            var uiElement = (UIElement)itemsControl.ItemContainerGenerator.ContainerFromIndex(i);
+                            uiElement.Arrange(new Rect(x, y, finalSize.Width, finalSize.Height));
+                        }
+                    }
+                } 
                 else
                 {
                     double x1 = GetX1(item);

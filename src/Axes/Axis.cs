@@ -182,12 +182,11 @@ namespace InteractiveDataDisplay.WPF
         /// </summary>
         public static readonly DependencyProperty LabelProviderProperty =
             DependencyProperty.Register("LabelProvider", typeof(ILabelProvider), typeof(Axis), new PropertyMetadata(new LabelProvider(),
-                (o, e) =>
-                {
+                (o, e) => {
                     Axis axis = (Axis)o;
-                    if (axis != null)
-                    {
+                    if (axis != null) {
                         axis.labelProvider = e.NewValue as ILabelProvider;
+                        axis.InvalidateMeasure();
                     }
                 }));
 

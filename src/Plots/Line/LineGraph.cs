@@ -20,6 +20,7 @@ namespace InteractiveDataDisplay.WPF
     public class LineGraph : Plot
     {
         private Polyline polyline;
+        private ItemsControl itemsControl;
 
         /// <summary>
         /// Gets or sets line graph points.
@@ -46,16 +47,34 @@ namespace InteractiveDataDisplay.WPF
         /// </summary>
         public LineGraph()
         {
-            polyline = new Polyline 
-            { 
+            polyline = new Polyline {
                 Stroke = new SolidColorBrush(Colors.Black),
                 StrokeLineJoin = PenLineJoin.Round
             };
 
-            BindingOperations.SetBinding(polyline, Polyline.StrokeThicknessProperty, new Binding("StrokeThickness") { Source = this });
+            BindingOperations.SetBinding(polyline, Shape.StrokeThicknessProperty, new Binding("StrokeThickness") { Source = this });
             BindingOperations.SetBinding(this, PlotBase.PaddingProperty, new Binding("StrokeThickness") { Source = this, Converter = new LineGraphThicknessConverter() });
 
+            var lineFactory = new FrameworkElementFactory(typeof(Line));
+            lineFactory.SetValue(Shape.StrokeStartLineCapProperty, PenLineCap.Round);
+            lineFactory.SetValue(Shape.StrokeEndLineCapProperty, PenLineCap.Round);
+            lineFactory.SetBinding(Shape.StrokeProperty, new Binding("Stroke") { Source = this });
+            lineFactory.SetBinding(Shape.StrokeThicknessProperty, new Binding("StrokeThickness") { Source = this, Converter = new LineThicknessConverter() });
+
+            var template = new DataTemplate { VisualTree = lineFactory };
+            var style = new Style();
+            style.Setters.Add(new Setter { Property = Canvas.LeftProperty, Value = new Binding("X") });
+            style.Setters.Add(new Setter { Property = Canvas.TopProperty, Value = new Binding("Y") });
+
+            itemsControl = new ItemsControl {
+                ItemsPanel = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(Canvas))),
+                ItemTemplate = template,
+                ItemContainerStyle = style
+            };
+            BindingOperations.SetBinding(itemsControl, ItemsControl.ItemsSourceProperty, new Binding("Points") { Source = this });
+
             Children.Add(polyline);
+            Children.Add(itemsControl);
         }
         static LineGraph()
         {
@@ -255,6 +274,43 @@ namespace InteractiveDataDisplay.WPF
             }
         }
         #endregion
+
+        #region Markers
+        /// <summary>
+        /// Identifies the <see cref="ShowMarkers"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty ShowMarkersProperty =
+            DependencyProperty.Register("ShowMarkers", typeof(bool), typeof(LineGraph), new PropertyMetadata(true, OnShowMarkersChanged));
+
+        private static void OnShowMarkersChanged(object target, DependencyPropertyChangedEventArgs e) {
+            var lineGraph = (LineGraph)target;
+            if ((bool)e.NewValue) {
+                if (!lineGraph.Children.Contains(lineGraph.itemsControl)) {
+                    lineGraph.Children.Add(lineGraph.itemsControl);
+                }
+            } else {
+                if (lineGraph.Children.Contains(lineGraph.itemsControl)) {
+                    lineGraph.Children.Remove(lineGraph.itemsControl);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the visibility of point markers.
+        /// </summary>
+        /// <remarks>
+        /// The default is true
+        /// </remarks>
+        [Category("Appearance")]
+        public bool ShowMarkers {
+            get {
+                return (bool)GetValue(ShowMarkersProperty);
+            }
+            set {
+                SetValue(ShowMarkersProperty, value);
+            }
+        }
+        #endregion
     }
 
     internal class LineGraphThicknessConverter : IValueConverter
@@ -271,5 +327,15 @@ namespace InteractiveDataDisplay.WPF
         }
     }
 
+    internal class LineThicknessConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
+            return (double)value * 5.0;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
+            throw new NotImplementedException();
+        }
+    }
 }
 
