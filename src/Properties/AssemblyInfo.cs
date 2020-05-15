@@ -7,7 +7,7 @@ using System.Windows;
 //// General Information about an assembly is controlled through the following
 //// set of attributes. Change these attribute values to modify the information
 //// associated with an assembly.
-[assembly: AssemblyTitle("mpolewaczyk.InteractiveDataDisplay.WPF")]
+[assembly: AssemblyTitle("InteractiveDataDisplay.WPF")]
 [assembly: AssemblyDescription("Interactive Data Display for WPF is a set of controls for adding interactive visualization of dynamic data to your application.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sergey Berezin, Vassily Lyutsarev, Nikita Skoblov, Natalia Stepanova, Mateusz Polewaczyk")]

@@ -48,7 +48,7 @@ namespace InteractiveDataDisplay.WPF
         public MarkerGraph()
         {
             var rd = new ResourceDictionary();
-            rd = (ResourceDictionary)Application.LoadComponent(new System.Uri("/mpolewaczyk.InteractiveDataDisplay.WPF;component/Plots/Markers/MarkerTemplates.xaml", System.UriKind.Relative));
+            rd = (ResourceDictionary)Application.LoadComponent(new System.Uri("/InteractiveDataDisplay.WPF;component/Plots/Markers/MarkerTemplates.xaml", System.UriKind.Relative));
             Resources.MergedDictionaries.Add(rd);
             UIThreadID = Thread.CurrentThread.ManagedThreadId;
 

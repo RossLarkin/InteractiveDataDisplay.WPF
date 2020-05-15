@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>InteractiveDataDisplay.WPF</RootNamespace>
-    <AssemblyName>mpolewaczyk.InteractiveDataDisplay.WPF</AssemblyName>
+    <AssemblyName>InteractiveDataDisplay.WPF</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
