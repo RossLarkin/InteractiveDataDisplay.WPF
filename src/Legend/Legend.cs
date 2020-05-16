@@ -109,7 +109,7 @@ namespace InteractiveDataDisplay.WPF
         /// <summary>
         /// Identifies attached property to get or set visibility of a legend.
         /// </summary>
-        public static readonly DependencyProperty IsVisibleProperty =
+        public static readonly new DependencyProperty IsVisibleProperty =
             DependencyProperty.RegisterAttached("IsVisible", typeof(bool), typeof(Legend), new PropertyMetadata(true));        
     }
 }

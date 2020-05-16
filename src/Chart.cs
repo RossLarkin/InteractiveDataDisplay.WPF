@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Markup;
 using System.ComponentModel;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace InteractiveDataDisplay.WPF
 {
@@ -47,6 +48,22 @@ namespace InteractiveDataDisplay.WPF
                 Source = plotAxis2
             });
         }
+
+        public MouseNavigation GetMouseNav()
+        {
+            MouseNavigation mouseNav = base.GetTemplateChild( "PART_mouseNavigation" ) as MouseNavigation;
+            return mouseNav;
+        }
+
+        public double GetAxisValue( MouseEventArgs e )
+        {
+            PlotAxis plotAxis = base.GetTemplateChild("PART_horizontalAxis") as PlotAxis;
+            if (plotAxis == null) return double.NaN;
+
+            double value = plotAxis.GetAxisValue( e );
+            return value;
+        }
+
         /// <summary>
         /// Raises the GotFocus event.
         /// </summary>

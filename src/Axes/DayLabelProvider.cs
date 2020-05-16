@@ -12,7 +12,7 @@ namespace InteractiveDataDisplay.WPF
     /// </summary>
     public class DayLabelProvider : ILabelProvider
     {
-        public string Format { get; set; } = "yyyy-MM-dd HH:mm:ss";
+        public string Format { get; set; } = "dd MMMM yyyy, HH:mm";
         private readonly double m_dTicksPerDay = TimeSpan.FromDays( 1 ).Ticks;
         private readonly double m_dDayTickStart;
 
@@ -38,12 +38,11 @@ namespace InteractiveDataDisplay.WPF
                 double dDayReal = tick + m_dDayTickStart;
                 long lTimeTicks = (long)(dDayReal * m_dTicksPerDay);
 
-//x                long lTimeTicks = (long)((tick + m_dDayTickStart) * m_dTicksPerDay);
                 DateTime dtX = new DateTime( lTimeTicks );
 
                 TextBlock text = new TextBlock
                 {
-                    Text = dtX.ToString(Format) + " (" + tick.ToString( "F3" ) + ")"
+                    Text = dtX.ToString(Format) //t + " (" + tick.ToString( "F3" ) + ")"
                 };
                 Labels.Add(text);
             }

@@ -61,11 +61,11 @@ namespace InteractiveDataDisplay.WPF
             Loaded += MouseNavigationLoaded;
             Unloaded += MouseNavigationUnloaded;
 
-            MouseLeave += new MouseEventHandler(MouseNavigationLayer_MouseLeave);
-            MouseMove += new MouseEventHandler(MouseNavigationLayer_MouseMove);
-            MouseLeftButtonUp += new MouseButtonEventHandler(MouseNavigationLayer_MouseLeftButtonUp);
-            MouseLeftButtonDown += new MouseButtonEventHandler(MouseNavigationLayer_MouseLeftButtonDown);
-            MouseWheel += new MouseWheelEventHandler(MouseNavigationLayer_MouseWheel);
+            MouseLeave           += new MouseEventHandler      ( MouseNavigationLayer_MouseLeave          );
+            MouseMove            += new MouseEventHandler      ( MouseNavigationLayer_MouseMove           );
+            MouseLeftButtonUp    += new MouseButtonEventHandler( MouseNavigationLayer_MouseLeftButtonUp   );
+            MouseLeftButtonDown  += new MouseButtonEventHandler( MouseNavigationLayer_MouseLeftButtonDown );
+            MouseWheel           += new MouseWheelEventHandler ( MouseNavigationLayer_MouseWheel          );
 
             LayoutUpdated += (s, a) => transformChangeRequested = false;
         }
@@ -157,16 +157,16 @@ namespace InteractiveDataDisplay.WPF
             return finalSize;
         }
 
+        public bool IsOnlyVerticalZoom   = false;
+        public bool IsOnlyHorizontalZoom = false;
         private void DoZoom(double factor)
         {
             if (masterPlot != null)
             {
                 var rect = masterPlot.PlotRect;
 
-                if (IsHorizontalNavigationEnabled)
-                    rect.X = rect.X.Zoom(factor);
-                if (IsVerticalNavigationEnabled)
-                    rect.Y = rect.Y.Zoom(factor);
+                if (IsHorizontalNavigationEnabled && ! IsOnlyVerticalZoom  ) rect.X = rect.X.Zoom( factor );
+                if (IsVerticalNavigationEnabled   && ! IsOnlyHorizontalZoom) rect.Y = rect.Y.Zoom( factor );
 
                 if (IsZoomEnable(rect))
                 {
@@ -377,6 +377,11 @@ namespace InteractiveDataDisplay.WPF
         }
 
         private void MouseNavigationLayer_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = HandleMouseUp();
+        }
+
+        private void MouseNavigationLayer_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             e.Handled = HandleMouseUp();
         }

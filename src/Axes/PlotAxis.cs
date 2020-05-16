@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace InteractiveDataDisplay.WPF
 {
@@ -30,6 +31,14 @@ namespace InteractiveDataDisplay.WPF
             DefaultStyleKey = typeof(PlotAxis);
             Loaded += PlotAxisLoaded;
             Unloaded += PlotAxisUnloaded;
+        }
+
+        public double GetAxisValue( MouseEventArgs e )
+        {
+            Point pt = e.GetPosition( axis );
+
+            double value = axis.HorzScreenToValue( pt.X );
+            return value;
         }
 
         private void PlotAxisUnloaded(object sender, RoutedEventArgs e)

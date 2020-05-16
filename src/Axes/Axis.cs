@@ -664,6 +664,23 @@ namespace InteractiveDataDisplay.WPF
             }
         }
 
+        public double HorzScreenToValue( double value )
+        {
+            if (! IsHorizontal) return double.NaN;
+
+            Size screenSize = this.RenderSize;
+
+            double dRange = (Range.Max - Range.Min);
+
+
+            if (Range.IsPoint) return dRange / 2.0;
+
+            double dPercentFull = value / screenSize.Width;
+            double dPercentScaled = dPercentFull * dRange;
+            double x = dPercentScaled + Range.Min;
+            return x;
+        }
+
         /// <summary>
         /// Gets the value indcating whether the axis is horizontal or not.
         /// </summary>
