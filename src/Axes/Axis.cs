@@ -19,6 +19,7 @@ namespace InteractiveDataDisplay.WPF
     {
         private ILabelProvider labelProvider;
         private TicksProvider ticksProvider;
+        private TicksProviderForDays ticksForDay = new TicksProviderForDays();  //RML
         private Path majorTicksPath;
         private Path minorTicksPath;
 
@@ -274,9 +275,13 @@ namespace InteractiveDataDisplay.WPF
                 return;
             }
 
+            //RML
+            bool hasTimeAxis = this.labelProvider is DayLabelProvider;
+
             // Do first pass of ticks arrangement
             ticksProvider.Range = range;
-            double[] ticks = ticksProvider.GetTicks();
+            ticksForDay  .Range = range;  //RML
+            double[] ticks = hasTimeAxis ? ticksForDay.GetTicks() : ticksProvider.GetTicks();
             labels = labelProvider.GetLabels(ticks);
 
             TickChange result;
@@ -291,18 +296,24 @@ namespace InteractiveDataDisplay.WPF
             int prevLength = ticks.Length;
             while (result != TickChange.OK && iterations++ < maxTickArrangeIterations)
             {
-                if (result == TickChange.Increase)
+                if (result == TickChange.Increase)  {
+                    ticksForDay  .IncreaseTickCount();
                     ticksProvider.IncreaseTickCount();
-                else
+                } else {
+                    ticksForDay  .DecreaseTickCount();
                     ticksProvider.DecreaseTickCount();
-                double[] newTicks = ticksProvider.GetTicks();
+                }
+//x                double[] newTicks = ticksProvider.GetTicks();
+                double[] newTicks = hasTimeAxis ? ticksForDay.GetTicks() : ticksProvider.GetTicks();
                 if (newTicks.Length > MaxTicks && result == TickChange.Increase)
                 {
+                    ticksForDay  .DecreaseTickCount(); // Step back and stop to not get more than MaxTicks
                     ticksProvider.DecreaseTickCount(); // Step back and stop to not get more than MaxTicks
                     break;
                 }
                 else if (newTicks.Length < 2 && result == TickChange.Decrease)
                 {
+                    ticksForDay  .IncreaseTickCount(); // Step back and stop to not get less than 2
                     ticksProvider.IncreaseTickCount(); // Step back and stop to not get less than 2
                     break;
                 }
@@ -325,6 +336,7 @@ namespace InteractiveDataDisplay.WPF
                             {
                                 ticks = prevTicks;
                                 labels = prevLabels;
+                                ticksForDay  .IncreaseTickCount();
                                 ticksProvider.IncreaseTickCount();
                             }
                         }
@@ -334,6 +346,7 @@ namespace InteractiveDataDisplay.WPF
                             {
                                 ticks = prevTicks;
                                 labels = prevLabels;
+                                ticksForDay  .DecreaseTickCount();
                                 ticksProvider.DecreaseTickCount();
                             }
                         }
@@ -391,7 +404,10 @@ namespace InteractiveDataDisplay.WPF
 
                 if (drawMinorTicks)
                 {
-                    double[] minorTicks = ticksProvider.GetMinorTicks(Range);
+                    //RML
+                    bool hasTimeAxis = this.labelProvider is DayLabelProvider;
+
+                    double[] minorTicks = hasTimeAxis ? ticksForDay.GetMinorTicks( Range ) :  ticksProvider.GetMinorTicks(Range);
                     if (minorTicks != null)
                     {
                         for (int j = 0; j < minorTicks.Length; j++)
@@ -587,22 +603,44 @@ namespace InteractiveDataDisplay.WPF
                 .OrderBy(item => item.Offset).ToArray();
 
             // If distance between labels if smaller than threshold for any of the labels - decrease
-            for (int i = 0; i < sizeInfos.Length - 1; i++)
-                if ((sizeInfos[i].Offset + sizeInfos[i].Size * decreaseRatio / 2) > sizeInfos[i + 1].Offset)
-                    return TickChange.Decrease;
+//t            for (int i = 0; i < sizeInfos.Length - 1; i++)
+//                if ((sizeInfos[i].Offset + sizeInfos[i].Size * decreaseRatio / 2) > sizeInfos[i + 1].Offset)
+//                    return TickChange.Decrease;
+//t
+//            // If distance between labels if larger than threshold for all of the labels - increase
+//            TickChange res = TickChange.Increase;
+//            for (int i = 0; i < sizeInfos.Length - 1; i++)
+//            {
+//                if ((sizeInfos[i].Offset + sizeInfos[i].Size * increaseRatio / 2) > sizeInfos[i + 1].Offset)
+//                {
+//                    res = TickChange.OK;
+//                    break;
+//                }
+//            }
 
-            // If distance between labels if larger than threshold for all of the labels - increase
-            TickChange res = TickChange.Increase;
-            for (int i = 0; i < sizeInfos.Length - 1; i++)
-            {
-                if ((sizeInfos[i].Offset + sizeInfos[i].Size * increaseRatio / 2) > sizeInfos[i + 1].Offset)
-                {
-                    res = TickChange.OK;
-                    break;
-                }
+//            return res;
+
+
+
+            for (int i = 0; i < sizeInfos.Length - 1; i++) {
+                double left1 = sizeInfos[i].Offset;
+                double wide1 = sizeInfos[i].Size;
+//t                double right1 = left1 + (wide1 * decreaseRatio / 2);
+                double right1 = left1 + wide1 + 20.0;   // Calc "closeness" with a fixed gap, rather than a ratio.
+                
+                double left2 = sizeInfos[i + 1].Offset;
+                if (right1 > left2) return TickChange.Decrease;
             }
 
-            return res;
+            for (int i = 0; i < sizeInfos.Length - 1; i++) {
+                double left1 = sizeInfos[i].Offset;
+                double wide1 = sizeInfos[i].Size;
+                double right1 = left1 + (wide1 * increaseRatio / 2);
+                
+                double left2 = sizeInfos[i + 1].Offset;
+                if (right1 > left2) return TickChange.OK;
+            }
+            return TickChange.Increase;
         }
 
         private double GetCoordinateFromTick(double tick, Size screenSize)
