@@ -237,13 +237,13 @@ namespace InteractiveDataDisplay.WPF
                                 lastNumber = lexer.ValueNumber;
                                 if (state == -1)
                                 {
-                                    //x1 = color = x2
+                                    //  x1 = color = x2
                                     points[points.Count - 1].X = lexer.ValueNumber;
                                     state = 1;
                                 }
                                 else if (state == 0)
                                 {
-                                    //color = x
+                                    //  color = x
                                     points[points.Count - 1].X = lexer.ValueNumber;
                                     state = 2;
                                 }
@@ -254,13 +254,13 @@ namespace InteractiveDataDisplay.WPF
                             {
                                 if (state == 1 || state == 2)
                                 {
-                                    //x = color (,x=color || color1=x=color2)
+                                    //  x = color (,x=color || color1=x=color2)
                                     points[points.Count - 1].RightColor = lexer.ValueColor;
                                     state = -1;
                                 }
                                 else if (state == 0 || state == -1)
                                 {
-                                    //color1 = color2
+                                    //  color1 = color2
                                     points[points.Count - 1].X = points[0].X - 1;
                                     points[points.Count - 1].RightColor = lexer.ValueColor;
                                     state = -1;

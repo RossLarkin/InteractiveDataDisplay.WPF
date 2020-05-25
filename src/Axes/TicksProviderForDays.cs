@@ -43,7 +43,6 @@ namespace InteractiveDataDisplay.WPF
                 if (d == 0) return new double[] { start, finish };
             }
 
-//x            double temp = m_delta * Math.Pow( 10, m_beta );
             double temp = m_delta * Math.Pow( 12, m_beta );
 
             double min = Math.Floor( start  / temp );
@@ -53,7 +52,6 @@ namespace InteractiveDataDisplay.WPF
             List<double> res = new List<double>();
             double x0 = min * temp;
             for (int i = 0; i < count + 1; i++) {
-//x                double v = RoundHelper.Round( x0 + i * temp, m_beta );
                 double v = x0 + i * temp;
                 if (v >= start && v <= finish) res.Add(v);
             }

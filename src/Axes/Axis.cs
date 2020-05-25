@@ -303,7 +303,6 @@ namespace InteractiveDataDisplay.WPF
                     ticksForDay  .DecreaseTickCount();
                     ticksProvider.DecreaseTickCount();
                 }
-//x                double[] newTicks = ticksProvider.GetTicks();
                 double[] newTicks = hasTimeAxis ? ticksForDay.GetTicks() : ticksProvider.GetTicks();
                 if (newTicks.Length > MaxTicks && result == TickChange.Increase)
                 {

@@ -29,7 +29,7 @@ namespace InteractiveDataDisplay.WPF
         private PlotBase masterPlot = null;
 
         /// <summary>First parent Control in visual tree. Used to receive focus on mouse click</summary>
-        private Control parentControl = null;
+        public Control parentControl = null;
 
         private bool isPanning = false;
         private bool isSelecting = false;
