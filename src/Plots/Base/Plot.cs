@@ -192,7 +192,11 @@ namespace InteractiveDataDisplay.WPF {
         /// Identifies the Plot.Points attached property. 
         /// </summary>
         public static readonly DependencyProperty PointsProperty =
-            DependencyProperty.RegisterAttached("Points", typeof(PointCollection), typeof(Plot), new PropertyMetadata(null, DataCoordinatePropertyChangedHandler));
+            DependencyProperty.RegisterAttached(
+                "Points", 
+                typeof(PointCollection), 
+                typeof(Plot), 
+                new PropertyMetadata(null, DataCoordinatePropertyChangedHandler));
 
         /// <summary>
         /// Sets the value of the Plot.Points attached property for a given dependency object. 
@@ -299,7 +303,7 @@ namespace InteractiveDataDisplay.WPF {
             return availableSize;
         }
 
-        internal void MeasureChildren(Size availableSize)
+        internal void MeasureChildren(Size availableSize)  // Also transforms points into a polyline.
         {
             foreach (UIElement child in Children)
             {
@@ -311,10 +315,18 @@ namespace InteractiveDataDisplay.WPF {
                 if (xy != null)
                     if (item is Polyline)
                     {
+                        // Transforms points into a polyline.
+                        // Called twice on first load: 1) Plot and 2) Plot within Figure.
+                        // Called once for change of X-axis: Plot
                         var line = (Polyline)item;
-                        var points = new PointCollection();
-                        foreach (var point in xy) points.Add(new Point(LeftFromX(XDataTransform.DataToPlot(point.X)), TopFromY(YDataTransform.DataToPlot(point.Y))));
-                        line.Points = points;
+                        var pointsForPolyline = new PointCollection();
+                        foreach (var ptOrig in xy) {
+                            Point ptScreen = new Point(
+                                LeftFromX( XDataTransform.DataToPlot( ptOrig.X )),
+                                TopFromY ( YDataTransform.DataToPlot( ptOrig.Y )));
+                            pointsForPolyline.Add( ptScreen );
+                        }
+                        line.Points = pointsForPolyline;
                     }
                     else if (item is Polygon)
                     {

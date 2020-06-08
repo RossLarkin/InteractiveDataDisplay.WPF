@@ -55,6 +55,12 @@ namespace InteractiveDataDisplay.WPF
             return mouseNav;
         }
 
+        public AxisGrid GetAxisGrid()
+        {
+            AxisGrid axisGrid = base.GetTemplateChild("PART_axisGrid") as AxisGrid;
+            return axisGrid;
+        }
+
         public double GetAxisValue( MouseEventArgs e )
         {
             PlotAxis plotAxis = base.GetTemplateChild("PART_horizontalAxis") as PlotAxis;

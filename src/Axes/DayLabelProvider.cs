@@ -42,7 +42,7 @@ namespace InteractiveDataDisplay.WPF
 
                 TextBlock text = new TextBlock
                 {
-                    Text = dtX.ToString(Format) //t + " (" + tick.ToString( "F3" ) + ")"
+                    Text = dtX.ToString(Format) 
                 };
                 Labels.Add(text);
             }

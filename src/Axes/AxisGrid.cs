@@ -19,6 +19,7 @@ namespace InteractiveDataDisplay.WPF
     public class AxisGrid : PlotBase
     {
         private Path path;
+        public  Path pathMarker;
 
         /// <summary>
         /// Identifies the <see cref="VerticalTicks"/> dependency property
@@ -106,7 +107,14 @@ namespace InteractiveDataDisplay.WPF
             BindingOperations.SetBinding(path, Shape.StrokeProperty, new Binding("Stroke") { Source = this, Mode = BindingMode.TwoWay, Converter = new SolidColorBrushToBrushConverter() });
             path.StrokeThickness = 1.0;
             Children.Add(path);
+
+            pathMarker = new Path();
+            pathMarker.StrokeThickness = 2.0;
+            pathMarker.Stroke = Brushes.DarkBlue;
+            Children.Add(pathMarker);
         }
+
+        public double m_MarkerX = double.NaN;
 
         /// <summary>
         /// Measures the size in layout required for child elements and determines a size for the AxisGrid. 
@@ -140,6 +148,15 @@ namespace InteractiveDataDisplay.WPF
                     line.StartPoint = new Point(screenX, minY);
                     line.EndPoint = new Point(screenX, maxY);
                     group.Children.Add(line);
+                }
+
+                if (m_MarkerX.IsFinite()) {
+                    double screenX = GetHorizontalCoordinateFromTick(m_MarkerX, availableSize.Width, ActualPlotRect.X);
+                    LineGeometry line = new LineGeometry();
+                    line.StartPoint = new Point(screenX, minY);
+                    line.EndPoint = new Point(screenX, maxY);
+
+                    pathMarker.Data = line;
                 }
             }
 

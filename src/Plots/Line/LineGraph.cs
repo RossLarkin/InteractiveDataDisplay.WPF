@@ -47,9 +47,10 @@ namespace InteractiveDataDisplay.WPF
         /// </summary>
         public LineGraph()
         {
-            polyline = new Polyline {
+            polyline = new Polyline {  // This Polyline will get filled with a scaled version of "Points" in Plot.MeasureChildren().
                 Stroke = new SolidColorBrush(Colors.Black),
-                StrokeLineJoin = PenLineJoin.Round
+                StrokeLineJoin = PenLineJoin.Round,
+                Name="LineGraph_Polyline"
             };
 
             BindingOperations.SetBinding(polyline, Shape.StrokeThicknessProperty, new Binding("StrokeThickness") { Source = this });
